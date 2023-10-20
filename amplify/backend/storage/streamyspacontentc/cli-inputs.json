@@ -1,0 +1,14 @@
+{
+  "resourceName": "streamyspacontentc",
+  "policyUUID": "df64ad5c",
+  "bucketName": "streamyspacesite",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

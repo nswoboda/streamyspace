@@ -10,6 +10,11 @@
       "StackName": "amplify-streamyspace-dev-144634",
       "StackId": "arn:aws:cloudformation:us-west-2:269482271019:stack/amplify-streamyspace-dev-144634/cf38ac70-6dff-11ee-bd81-0a57c3918f73",
       "AmplifyAppId": "d3p4k90a7c5fd2"
+    },
+    "categories": {
+      "auth": {
+        "streamyspacef4a45f5d": {}
+      }
     }
   }
 }
