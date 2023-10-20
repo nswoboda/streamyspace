@@ -1,0 +1,129 @@
+.landing-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  
+    overflow: hidden;
+}
+
+.landing-container {
+    width: 100vw;
+    height: 100vw;
+    background-image: url('https://streamyspace-public-assets.s3.us-west-2.amazonaws.com/landing/streamyspace-landing-background.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.circular-container {
+    width: 38.5vw;
+    height: 37vw;
+    border-radius: 50%;
+    background-color: hsla(254, 67%, 24%, 0.148);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;  
+    left: 50%; 
+    transform: translate(-66.5%, -54.1%);
+    flex-direction: column;
+    gap: 1.5vw;
+}
+
+.logo {
+    width: 20vw;
+    height: 10vw;
+    background-image: url('https://streamyspace-public-assets.s3.us-west-2.amazonaws.com/landing/StreamySpace-Logo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.login-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.login-input {
+    padding: 0.5vw;
+    border: 0.2vw solid #E5E4E2;
+    border-radius: 0.5vw;
+    background-color: transparent;
+    color: #E5E4E2;
+    font-size: 1.2vw;
+    text-align: center;
+    outline: none;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+.login-button {
+    padding: 1vw 2vw;
+    border: none;
+    border-radius: 0.5vw;
+    background-color: #E5E4E2;
+    color: #191970;
+    cursor: pointer;
+    font-size: 1.2vw;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+.login-button:hover {
+    background-color: #E5E4E2;
+    color: #191970;
+}
+
+.about-us-text {
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+.company-description-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-66.5%, -54.1%);
+    width: 38.5vw;
+    height: 37vw;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.875);
+    color: white;
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2vw;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2vw;
+    font-weight: bold;
+}
+
+.company-description-popup button {
+    margin-top: 1rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 0.5vw;
+    transition: 0.3s;
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    font-size: 1.2vw;
+}

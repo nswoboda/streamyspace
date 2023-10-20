@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import { Amplify } from 'aws-amplify';
 import config from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Import your page components
 import ChatSupport from './pages/ChatSupport';
@@ -35,67 +30,54 @@ import Support from './pages/Support';
 
 Amplify.configure(config);
 
-function App() {
-  // State for Sidebar open/close
+function AuthenticatedApp() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Welcome to StreamySpace</h1>
+        <ProfileDropdown />
+        <NotificationCenter />
+        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+          {isSidebarOpen ? 'Close Chat' : 'Open Chat'}
+        </button>
+      </header>
+
+      {isSidebarOpen && <Sidebar />}
+
+      <main>
+        <Routes>
+          {/* All routes except the Landing route */}
+          {/* ... (all your routes) ... */}
+        </Routes>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+function PublicApp() {
+  return (
+    <Routes>
+      <Route path="/" element={<Landing />} />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
     <Router>
-      <div className="App">
-
-        {/* Header */}
-        <header className="App-header">
-          <h1>Welcome to StreamySpace</h1>
-          {/* Profile & Settings Dropdown */}
-          <ProfileDropdown />
-
-          {/* Notifications */}
-          <NotificationCenter />
-
-          {/* Sidebar Toggle Button */}
-          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-            {isSidebarOpen ? 'Close Chat' : 'Open Chat'}
-          </button>
-        </header>
-
-        {/* Collapsible Team Communication Sidebar */}
-        {isSidebarOpen && <Sidebar />}
-
-        {/* Main Content Area */}
-        <main>
-          <Routes>
-            <Route path="/chat-support" element={<ChatSupport />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/client-dashboard" element={<ClientDashboard />} />
-            <Route path="/client-register" element={<ClientRegisterPage />} />
-            <Route path="/client-suggestions" element={<ClientSuggestionsGeneration />} />
-            <Route path="/client-video-reviewer" element={<ClientVideoReviewer />} />
-            <Route path="/editor-content-upload" element={<EditorContentUpload />} />
-            <Route path="/editor-dashboard" element={<EditorDashboard />} />
-            <Route path="/editor-bank" element={<EditorBank />} />
-            <Route path="/finance-manager-dashboard" element={<FinanceManagerDashboard />} />
-            <Route path="/" element={<Landing />} />
-            <Route path="/manager-dashboard" element={<ManagerDashboard />} />
-            <Route path="/manager-reviewer" element={<ManagerReviewer />} />
-            <Route path="/manager-suite" element={<ManagerSuite />} />
-            <Route path="/plans-upgrade" element={<PlansUpgrade />} />
-            <Route path="/publisher-bank" element={<PublisherBank />} />
-            <Route path="/publisher-calendar" element={<PublisherCalendar />} />
-            <Route path="/publisher-dashboard" element={<PublisherDashboard />} />
-            <Route path="/publisher-reviewer" element={<PublisherReviewer />} />
-            <Route path="/publisher-social-manager" element={<PublisherSocialManager />} />
-            <Route path="/support-forms" element={<SupportForms />} />
-            <Route path="/support" element={<Support />} />
-          </Routes>
-        </main>
-
-        {/* Footer */}
-        <Footer />
-
-      </div>
+      <Routes>
+        <Route path="/" element={<PublicApp />} />
+        <Route path="/*" element={<AuthenticatedAppWrapper />} />
+      </Routes>
     </Router>
   );
 }
+
+const AuthenticatedAppWrapper = withAuthenticator(AuthenticatedApp, { includeGreetings: true });
 
 // Placeholder components
 function ProfileDropdown() {
@@ -114,4 +96,4 @@ function Footer() {
   return <div>Footer</div>;
 }
 
-export default withAuthenticator(App, { includeGreetings: true });
+export default App;
