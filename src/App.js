@@ -3,6 +3,12 @@ import { Amplify } from 'aws-amplify';
 import config from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { API, graphqlOperation } from 'aws-amplify';
+
+
+
+
+
 
 // Import your page components
 import ChatSupport from './pages/ChatSupport';

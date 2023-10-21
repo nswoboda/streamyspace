@@ -19,7 +19,7 @@
     width: 38.5vw;
     height: 37vw;
     border-radius: 50%;
-    background-color: hsla(254, 67%, 24%, 0.148);
+    background-color: hsla(203, 67%, 24%, 0.148);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +63,7 @@
     padding: 1vw 2vw;
     border: none;
     border-radius: 0.5vw;
-    background-color: #E5E4E2;
+    background-color: #e9d0a0;
     color: #191970;
     cursor: pointer;
     font-size: 1.2vw;
