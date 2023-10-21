@@ -15,11 +15,11 @@
       "auth": {
         "streamyspacef4a45f5d": {}
       },
-      "api": {
-        "streamyspace": {}
-      },
       "storage": {
         "streamyspacontentc": {}
+      },
+      "api": {
+        "streamyspace": {}
       }
     }
   }
