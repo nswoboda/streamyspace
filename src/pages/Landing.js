@@ -11,7 +11,7 @@ const Landing = () => {
     const handleLogin = async () => {
         try {
             // Send a request to your backend or directly to the AWS Lambda endpoint
-            const response = await axios.post('https://csz6z3cz3i.execute-api.us-west-2.amazonaws.com/Production', {
+            const response = await axios.post('https://pd773bswfjcndfpcuvqosyl5sy.appsync-api.us-west-2.amazonaws.com/graphql', {
                 email: email,
                 password: password // In a real-world scenario, you might not want to send the password
             });

@@ -51,7 +51,7 @@
     border: 0.2vw solid #E5E4E2;
     border-radius: 0.5vw;
     background-color: transparent;
-    color: #E5E4E2;
+    color: rgb(229, 228, 226);
     font-size: 1.2vw;
     text-align: center;
     outline: none;
@@ -63,7 +63,7 @@
     padding: 1vw 2vw;
     border: none;
     border-radius: 0.5vw;
-    background-color: #e9d0a0;
+    background-color: #e9cfa0;
     color: #191970;
     cursor: pointer;
     font-size: 1.2vw;
@@ -76,15 +76,24 @@
     color: #191970;
 }
 
+.about-us-text, .company-description-popup {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 1.2vw;
+}
+
 .about-us-text {
     position: absolute;
     bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
+    color: rgba(255, 255, 255, 0.969);
+    background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.93), transparent);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: shineEffect 25s linear infinite;
 }
 
 .company-description-popup {
@@ -106,9 +115,6 @@
     align-items: center;
     text-align: center;
     padding: 2vw;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.2vw;
-    font-weight: bold;
 }
 
 .company-description-popup button {
@@ -124,6 +130,27 @@
     bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
-    font-weight: bold;
-    font-size: 1.2vw;
+}
+
+/* Animation for the login button */
+@keyframes growAndShrink {
+    0%, 100% {
+        transform: scale(.80);
+    }
+    50% {
+        transform: scale(1.00);
+    }
+}
+
+.landing-container .login-button {
+    animation: growAndShrink 5s infinite;
+}
+
+@keyframes shineEffect {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
 }
