@@ -38,6 +38,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    padding-bottom: 10%;
 }
 
 .login-fields {
@@ -89,7 +90,7 @@
     transform: translateX(-50%);
     cursor: pointer;
     color: rgba(255, 255, 255, 0.969);
-    background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.93), transparent);
+    background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.962), transparent);
     background-size: 400% 400%;
     -webkit-background-clip: text;
     color: transparent;
@@ -138,12 +139,12 @@
         transform: scale(.80);
     }
     50% {
-        transform: scale(1.00);
+        transform: scale(.75);
     }
 }
 
 .landing-container .login-button {
-    animation: growAndShrink 5s infinite;
+    animation: growAndShrink 7s infinite;
 }
 
 @keyframes shineEffect {
@@ -154,3 +155,24 @@
         background-position: 200% center;
     }
 }
+/* CSS Animation for spinning logo */
+@keyframes spin {
+    0%, 80%, 100% {
+      transform: rotateY(0deg);
+    }
+    90% {
+      transform: rotateY(360deg);
+    }
+  }
+  
+  .logo-spinning {
+    animation: spin 7s infinite;
+    cursor: grab;
+  }
+  
+  .logo-spinning:active {
+    cursor: grabbing;
+    animation-play-state: paused;
+  }
+
+  

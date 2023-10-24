@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './Landing.css';
 
@@ -10,26 +10,82 @@ const Landing = () => {
 
     const handleLogin = async () => {
         try {
-            // Send a request to your backend or directly to the AWS Lambda endpoint
             const response = await axios.post('https://pd773bswfjcndfpcuvqosyl5sy.appsync-api.us-west-2.amazonaws.com/graphql', {
                 email: email,
-                password: password // In a real-world scenario, you might not want to send the password
+                password: password
             });
 
             if (response.data && response.data.status === 'unregistered') {
                 setShowUnregisteredPopup(true);
             }
-            // Handle other responses or actions based on the response data
         } catch (error) {
             console.error('Error during login:', error);
+        }     
+    };
+
+    const logoRef = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [lastX, setLastX] = useState(0);
+    const [rotation, setRotation] = useState(0);
+    const [velocity, setVelocity] = useState(0);
+    const lastTime = useRef(Date.now());
+
+    const handleMouseDown = (e) => {
+        setIsDragging(true);
+        setLastX(e.clientX);
+        lastTime.current = Date.now();
+        logoRef.current.classList.remove('logo-spinning');
+    };
+
+    const handleMouseMove = (e) => {
+        if (isDragging) {
+            const currentTime = Date.now();
+            const deltaTime = currentTime - lastTime.current;
+            const deltaX = e.clientX - lastX;
+            const newRotation = rotation + deltaX;
+            
+            setVelocity(deltaX / deltaTime);
+            setRotation(newRotation);
+            setLastX(e.clientX);
+            lastTime.current = currentTime;
+            logoRef.current.style.transform = `rotateY(${newRotation}deg)`;
         }
     };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (!isDragging && velocity !== 0) {
+                const newRotation = rotation + velocity;
+                setRotation(newRotation);
+                logoRef.current.style.transform = `rotateY(${newRotation}deg)`;
+                setVelocity(velocity * 0.95);
+
+                if (Math.abs(velocity) < 0.1) {
+                    setVelocity(0);
+                    logoRef.current.classList.add('logo-spinning');
+                }
+            }
+        }, 20);
+
+        return () => clearInterval(interval);
+    }, [isDragging, rotation, velocity]);
 
     return (
         <div className="landing-wrapper">
             <div className="landing-container">
                 <div className="circular-container">
-                    <div className="logo"></div>
+                    <div 
+                        className="logo logo-spinning" 
+                        ref={logoRef}
+                        onMouseDown={handleMouseDown}
+                        onMouseMove={handleMouseMove}
+                        onMouseUp={handleMouseUp}
+                        onMouseLeave={handleMouseUp}
+                    ></div>
                     <div className="login-fields">
                         <input 
                             type="text" 
