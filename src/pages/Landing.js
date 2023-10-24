@@ -115,7 +115,7 @@ const Landing = () => {
                 )}
                 {showUnregisteredPopup && (
                     <div className="company-description-popup">
-                        Your email has been received, and we'll reach out when accepted.
+                        Your email has been received, and we'll reach out when accepted!
                         <button onClick={() => setShowUnregisteredPopup(false)}>Close</button>
                     </div>
                 )}
