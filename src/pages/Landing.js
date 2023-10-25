@@ -1,26 +1,48 @@
 import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './Landing.css';
+import { Auth } from 'aws-amplify';
 
 const Landing = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showDescription, setShowDescription] = useState(false);
-    const [showUnregisteredPopup, setShowUnregisteredPopup] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('https://pd773bswfjcndfpcuvqosyl5sy.appsync-api.us-west-2.amazonaws.com/graphql', {
-                email: email,
-                password: password
-            });
+            const user = await Auth.signIn(email, password);
+            console.log(user);
 
-            if (response.data && response.data.status === 'unregistered') {
-                setShowUnregisteredPopup(true);
+            // Assuming user attributes contain a 'status' that indicates if they are approved or pending.
+            if (user.attributes['custom:status'] === 'pending') {
+                // Navigate to Client Admin (formerly Onboarding) page
+                navigate('/client-admin');
+                return;
             }
+
+            // Navigate to the main dashboard if the user is approved.
+            navigate('/dashboard');
+
         } catch (error) {
             console.error('Error during login:', error);
-        }     
+
+            switch (error.code) {
+                case 'UserNotConfirmedException':
+                    setErrorMessage('Please confirm your email address.');
+                    break;
+                case 'PasswordResetRequiredException':
+                    setErrorMessage('Password reset is required.');
+                    break;
+                case 'NotAuthorizedException':
+                    setErrorMessage('Incorrect email or password.');
+                    break;
+                default:
+                    setErrorMessage('An error occurred. Please try again.');
+            }
+        }
     };
 
     const logoRef = useRef(null);
@@ -111,12 +133,6 @@ const Landing = () => {
                     <div className="company-description-popup">
                         <div className="spacing">Digital Content Company based in Spokane, WA</div>
                         <button onClick={() => setShowDescription(false)}>Close</button>
-                    </div>
-                )}
-                {showUnregisteredPopup && (
-                    <div className="company-description-popup">
-                        Your email has been received, and we'll reach out when accepted!
-                        <button onClick={() => setShowUnregisteredPopup(false)}>Close</button>
                     </div>
                 )}
             </div>
